@@ -1,0 +1,61 @@
+﻿@model IEnumerable<TheatreCMS3.Areas.Rent.Models.RentalHistory>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/Areas/Rent.css" rel="stylesheet" />
+<script src="~/Scripts/Areas/Rent.js"></script>
+
+
+<h2 class="rental-index--h2">Index</h2>
+
+<p class="rental-index--center">
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div>
+    <table class="rental-index--table">
+        <tr class="rental-index--font">
+            <th>Most Recent Rental Histories</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td class="rental-index--checkmarkcolumn" >
+            <span class="rental-index--redx rental-index--grayfont @(!item.RentalDamaged ? "d-none" : "")">
+            </span>
+            <span class="rental-index--greencheck @(item.RentalDamaged ? "d-none" : "")">
+            </span>
+        </td>
+        <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left;">
+            <span class="badge badge-secondary @(item.RentalDamaged ? "" : "")">@Html.DisplayFor(modelItem => item.Rental)</span>
+            <span class="@(item.RentalDamaged ? "" : "rental-index--grayfont")">@Html.DisplayFor(modelItem => item.DamagesIncurred)</span>
+        </td>
+        <td style="text-align: right;" class="rental-index--dropdown rental-index--font">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-ellipsis-v"></i>
+            </button>
+            <span class="dropdown-menu">
+                @Html.ActionLink("Edit", "Edit", new { id = item.RentalHistoryId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.RentalHistoryId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.RentalHistoryId })
+            </span>
+        </td>
+
+    </tr>
+        }
+
+    </table>
+    <style>
+        table {
+            width: 500px;
+            table-layout: fixed;
+            align-content: center;
+        }
+    </style>
+
+ 
+
+</div>
